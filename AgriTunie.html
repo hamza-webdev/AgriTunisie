@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographie: AgriTunisie Connect - Tendances, Étude de Marché & IA Gemini</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 
+        Infographic Narrative Plan:
+        1. Titre: AgriTunisie Connect: Révolutionner l'Agriculture Tunisienne.
+        2. Section 1: L'Opportunité / Le Besoin du Marché (Objectifs Clés).
+        3. Section 2: Public Cible (Segmentation des agriculteurs).
+        4. Section 3: La Solution Complète (Vue d'ensemble des 6 modules clés, avec mentions IA).
+        5. Section 4: Architecture Technologique (Fondations de l'application).
+        6. Section 5: Expérience Utilisateur Optimisée (Points forts UI/UX).
+        7. Section 6: Fonctionnalités Avancées avec l'IA Gemini (Nouveau).
+        8. Section 7: Modèle Économique Stratégique (Approche Freemium).
+        9. Section 8: Feuille de Route (Développement par phases).
+        10. Section 9: Surmonter les Défis (Principaux obstacles).
+        11. Conclusion: Vers un Avenir Agricole Connecté et Intelligent.
+
+        Visualization Choices: (Maintained from previous, new section uses styled text)
+        - Section 1 (Opportunité): Big Numbers with Icons (HTML/CSS). Goal: Inform.
+        - Section 2 (Public Cible): Donut Chart (Chart.js Canvas). Goal: Compare.
+        - Section 3 (Solution/Modules): Diagramme de flux/structure (HTML/CSS Tailwind) with AI mentions. Goal: Organize/Show Relationships.
+        - Section 4 (Architecture Tech): Liste stylisée (HTML/CSS). Goal: Inform.
+        - Section 5 (UX): Liste d'icônes (HTML/CSS). Goal: Inform.
+        - Section 6 (IA Gemini): Cartes descriptives (HTML/CSS). Goal: Inform.
+        - Section 7 (Modèle Éco): Structure HTML/CSS. Goal: Inform.
+        - Section 8 (Feuille de Route): Timeline (HTML/CSS Tailwind). Goal: Show Change/Organize.
+        - Section 9 (Défis): Liste stylisée (HTML/CSS). Goal: Inform.
+        - Confirmation: NO SVG, NO MERMAID JS.
+
+        Chosen Color Palette: Energetic & Playful (Teal: #00A0B0, Coral: #FF7F50, Gold: #FFD700, LightCoral: #FF6B6B, Text: #343A40, Background: #F8F9FA)
+
+        Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All diagrams/charts are HTML/CSS/Canvas.
+    -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #343A40; }
+        .chart-container { position: relative; width: 100%; max-width: 450px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; max-height: 400px; } }
+        .section-card { background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 1.5rem; margin-bottom: 2rem; }
+        .main-title { color: #00A0B0; }
+        .section-title { color: #FF7F50; border-bottom: 2px solid #FFD700; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        .stat-icon { font-size: 2rem; margin-right: 0.75rem; color: #00A0B0; }
+        .feature-icon { font-size: 1.5rem; margin-right: 0.5rem; color: #FF7F50; }
+        .ai-feature-icon { font-size: 1.75rem; margin-right: 0.75rem; color: #FFD700; }
+        .timeline-item { border-left: 3px solid #00A0B0; padding-left: 1.5rem; position: relative; }
+        .timeline-dot { content: ''; position: absolute; left: -0.5rem; top: 0.25rem; height: 1rem; width: 1rem; background-color: #FF7F50; border-radius: 50%; border: 3px solid white; }
+        .module-card { border: 1px solid #00A0B0; background-color: #E6FFFA; }
+        .gemini-card { border: 1px solid #FFD700; background-color: #FFF9C4; } /* Light Yellow for Gemini features */
+        .text-primary { color: #00A0B0; }
+        .text-secondary { color: #FF7F50; }
+        .text-accent1 { color: #FFD700; }
+        .text-accent2 { color: #FF6B6B; }
+        .bg-primary-light { background-color: #E0F7FA; } 
+        .bg-secondary-light { background-color: #FFE0B2; } 
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold main-title mb-2">AgriTunisie Connect</h1>
+            <p class="text-xl text-gray-600">Révolutionner l'Agriculture Tunisienne Grâce à la Technologie et l'IA</p>
+            <p class="text-sm text-gray-500 mt-1">Votre champ, notre expertise, une récolte prospère et intelligente.</p>
+        </header>
+
+        <section id="opportunite" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">L'Opportunité du Marché Agricole Tunisien</h2>
+            <p class="mb-6 text-gray-700">L'agriculture tunisienne fait face à des défis de modernisation et d'optimisation. AgriTunisie Connect vise à combler ce besoin en fournissant des outils numériques essentiels, enrichis par l'intelligence artificielle, pour améliorer significativement les pratiques agricoles.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="p-4 bg-primary-light rounded-lg shadow">
+                    <span class="stat-icon">🚀</span>
+                    <h3 class="text-lg font-semibold text-primary">Productivité Accrue</h3>
+                    <p class="text-sm text-gray-600">Optimiser les cultures et l'élevage pour de meilleurs rendements.</p>
+                </div>
+                <div class="p-4 bg-primary-light rounded-lg shadow">
+                    <span class="stat-icon">💡</span>
+                    <h3 class="text-lg font-semibold text-primary">Décisions Éclairées</h3>
+                    <p class="text-sm text-gray-600">Données en temps réel et analyses IA pour des choix stratégiques.</p>
+                </div>
+                <div class="p-4 bg-primary-light rounded-lg shadow">
+                    <span class="stat-icon">🔗</span>
+                    <h3 class="text-lg font-semibold text-primary">Communauté Connectée</h3>
+                    <p class="text-sm text-gray-600">Plateforme d'échange pour un secteur agricole uni et informé.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="public-cible" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Public Cible : Le Cœur de l'Agriculture Tunisienne</h2>
+            <p class="mb-6 text-gray-700">AgriTunisie Connect s'adresse à l'ensemble des acteurs agricoles en Tunisie, reconnaissant la diversité des exploitations et leurs besoins spécifiques. L'application est conçue pour être accessible et utile à tous.</p>
+            <div class="chart-container mx-auto">
+                <canvas id="targetAudienceChart"></canvas>
+            </div>
+            <p class="text-center mt-4 text-sm text-gray-600">Répartition illustrative des types d'exploitations ciblées.</p>
+        </section>
+
+        <section id="solution" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Une Solution Complète : Les 6 Modules Clés</h2>
+            <p class="mb-6 text-gray-700">L'application s'articule autour de six modules interconnectés, offrant une panoplie de fonctionnalités pour couvrir tous les aspects de la gestion agricole moderne, avec des capacités IA intégrées.</p>
+            <div class="space-y-4">
+                <div class="text-center p-4 rounded-lg bg-gray-100 shadow">
+                    <h3 class="text-xl font-bold text-primary">AgriTunisie Connect</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                    <div class="module-card p-3 rounded-md shadow-sm">
+                        <h4 class="font-semibold text-primary mb-1">1. Assistant de Culture</h4>
+                        <p class="text-gray-600">Catalogue plantes, calendrier, calcul intrants, journal parcelle. Inclut ✨ Conseils de Culture IA.</p>
+                    </div>
+                    <div class="module-card p-3 rounded-md shadow-sm">
+                        <h4 class="font-semibold text-primary mb-1">2. Assistant d'Élevage</h4>
+                        <p class="text-gray-600">Catalogue animaux, calcul rations, suivi sanitaire. Avec ✨ Optimiseur de Rations IA.</p>
+                    </div>
+                    <div class="module-card p-3 rounded-md shadow-sm">
+                        <h4 class="font-semibold text-primary mb-1">3. Bourse des Prix</h4>
+                        <p class="text-gray-600">Prix marchés régionaux, graphiques, alertes.</p>
+                    </div>
+                    <div class="module-card p-3 rounded-md shadow-sm">
+                        <h4 class="font-semibold text-primary mb-1">4. Météo Agricole</h4>
+                        <p class="text-gray-600">Prévisions précises, alertes spécifiques, historique.</p>
+                    </div>
+                    <div class="module-card p-3 rounded-md shadow-sm">
+                        <h4 class="font-semibold text-primary mb-1">5. Cartographie & Parcelles</h4>
+                        <p class="text-gray-600">Dessin de champs, calcul superficie, gestion parcelles.</p>
+                    </div>
+                    <div class="module-card p-3 rounded-md shadow-sm">
+                        <h4 class="font-semibold text-primary mb-1">6. Communauté & Infos</h4>
+                        <p class="text-gray-600">Forum, actualités (✨ résumés IA), annuaire contacts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Architecture Technologique Robuste et Moderne</h2>
+            <p class="mb-6 text-gray-700">AgriTunisie Connect sera développée comme une Progressive Web App (PWA) pour une accessibilité maximale, en utilisant des technologies éprouvées pour la performance et la scalabilité, et en intégrant l'API Gemini pour les fonctionnalités IA.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="bg-secondary-light p-4 rounded-lg shadow">
+                    <h3 class="font-semibold text-secondary text-lg mb-2">📱 Type d'Application</h3>
+                    <p><strong class="text-gray-700">PWA (Progressive Web App):</strong> Accessible sur tous smartphones via navigateur, mises à jour faciles, mode hors-ligne partiel.</p>
+                </div>
+                <div class="bg-secondary-light p-4 rounded-lg shadow">
+                    <h3 class="font-semibold text-secondary text-lg mb-2">💻 Frontend</h3>
+                    <p><strong class="text-gray-700">Frameworks JS Modernes:</strong> React, Vue, ou Angular pour une interface réactive et intuitive.</p>
+                    <p><strong class="text-gray-700">Cartographie:</strong> Leaflet (OpenStreetMap) ou Google Maps API.</p>
+                </div>
+                <div class="bg-secondary-light p-4 rounded-lg shadow">
+                    <h3 class="font-semibold text-secondary text-lg mb-2">⚙️ Backend & IA</h3>
+                    <p><strong class="text-gray-700">Langages Serveur:</strong> Node.js, Python, ou PHP.</p>
+                    <p><strong class="text-gray-700">Bases de Données:</strong> PostgreSQL (PostGIS), NoSQL (MongoDB/Firestore).</p>
+                    <p><strong class="text-gray-700">Intelligence Artificielle:</strong> Intégration de l'API Gemini pour les fonctionnalités avancées.</p>
+                </div>
+                <div class="bg-secondary-light p-4 rounded-lg shadow">
+                    <h3 class="font-semibold text-secondary text-lg mb-2">🌐 APIs Externes Clés</h3>
+                    <p><strong class="text-gray-700">Météo:</strong> OpenWeatherMap ou API locale.</p>
+                    <p><strong class="text-gray-700">Prix:</strong> API ONAGRI (si dispo) ou collecte dédiée.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ux" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Expérience Utilisateur Axée sur l'Agriculteur</h2>
+            <p class="mb-6 text-gray-700">L'interface sera conçue pour être simple, intuitive et adaptée à une utilisation sur le terrain, même avec une connectivité limitée.</p>
+            <ul class="space-y-3">
+                <li class="flex items-center"><span class="feature-icon">🌍</span> Support multilingue (Arabe Tunisien/Standard, Français).</li>
+                <li class="flex items-center"><span class="feature-icon">📉</span> Mode hors-ligne pour les fonctionnalités essentielles.</li>
+                <li class="flex items-center"><span class="feature-icon">🛠️</span> Personnalisation du profil pour des informations ciblées.</li>
+                <li class="flex items-center"><span class="feature-icon">📱</span> Design adaptatif (responsive) pour tous les écrans.</li>
+                <li class="flex items-center"><span class="feature-icon">👀</span> Accessibilité : contrastes élevés, navigation simple.</li>
+            </ul>
+        </section>
+
+        <section id="gemini-features" class="section-card">
+            <h2 class="text-2xl font-semibold section-title"><span class="text-accent1">🚀</span> Fonctionnalités Avancées avec l'IA Gemini</h2>
+            <p class="mb-6 text-gray-700">L'intégration de l'API Gemini débloque des capacités d'intelligence artificielle pour assister l'agriculteur de manière personnalisée et proactive.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="gemini-card p-4 rounded-lg shadow">
+                    <div class="flex items-center mb-2">
+                        <span class="ai-feature-icon">🌿</span>
+                        <h3 class="text-lg font-semibold text-gray-800">✨ Conseils de Culture Personnalisés par IA</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">Recevez des recommandations sur mesure pour vos cultures (périodes de semis, fertilisation, gestion des maladies) basées sur vos données, la météo et les meilleures pratiques analysées par l'IA Gemini.</p>
+                </div>
+                <div class="gemini-card p-4 rounded-lg shadow">
+                    <div class="flex items-center mb-2">
+                        <span class="ai-feature-icon">🐄</span>
+                        <h3 class="text-lg font-semibold text-gray-800">✨ Optimisation Intelligente des Rations Animales</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">L'IA Gemini vous aide à composer des rations alimentaires équilibrées pour votre bétail en fonction des aliments disponibles localement et des besoins nutritionnels spécifiques de vos animaux.</p>
+                </div>
+                <div class="gemini-card p-4 rounded-lg shadow md:col-span-2">
+                    <div class="flex items-center mb-2">
+                        <span class="ai-feature-icon">📰</span>
+                        <h3 class="text-lg font-semibold text-gray-800">✨ Analyse et Résumé d'Actualités Agricoles</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">Restez informé efficacement : Gemini peut analyser et résumer les dernières actualités, rapports et réglementations du secteur agricole, vous fournissant l'essentiel en un clin d'œil.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="modele-economique" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Modèle Économique Stratégique et Durable</h2>
+            <p class="mb-6 text-gray-700">Un modèle Freemium est envisagé pour assurer une large adoption tout en offrant des services à valeur ajoutée, y compris les fonctionnalités IA avancées, pour la pérennité de la plateforme.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border border-gray-300 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-primary mb-3">Accès Gratuit (Freemium)</h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Météo de base</li>
+                        <li>Catalogue de cultures (limité)</li>
+                        <li>Dessin de parcelle simple</li>
+                        <li>Accès partiel aux prix</li>
+                        <li>Fonctionnalités IA de base (limitées)</li>
+                    </ul>
+                </div>
+                <div class="border border-green-500 p-6 rounded-lg shadow bg-green-50">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Offre Premium (Abonnement)</h3>
+                    <ul class="list-disc list-inside text-green-600 space-y-1">
+                        <li>Analyses de parcelles avancées</li>
+                        <li>Alertes météo et prix personnalisées</li>
+                        <li>Accès complet à l'historique des prix</li>
+                        <li>Catalogue complet cultures & élevage</li>
+                        <li>✨ Accès complet aux fonctionnalités IA Gemini</li>
+                        <li>Support prioritaire</li>
+                    </ul>
+                </div>
+            </div>
+             <p class="mt-6 text-gray-700">Autres sources de revenus potentielles : publicité ciblée non intrusive et partenariats stratégiques avec des acteurs du secteur agricole.</p>
+        </section>
+
+        <section id="feuille-de-route" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Feuille de Route : Développement Progressif</h2>
+            <p class="mb-8 text-gray-700">Le développement suivra une approche agile, commençant par un Produit Minimum Viable (MVP) pour ensuite enrichir l'application en continu, avec une intégration progressive des fonctionnalités IA.</p>
+            <div class="space-y-8">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-lg font-semibold text-primary mb-1">Phase 1 : MVP</h3>
+                    <p class="text-sm text-gray-600">Fonctionnalités essentielles : dessin parcelle, météo base, catalogue simplifié, saisie prix pilotes. Introduction d'une première fonctionnalité IA (ex: conseils de base).</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-lg font-semibold text-primary mb-1">Phase 2 : Enrichissement & IA</h3>
+                    <p class="text-sm text-gray-600">Développement complet des modules Plantation & Élevage. Amélioration Bourse des Prix. Intégration API météo/carto. Notifications. Expansion des fonctionnalités IA Gemini.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-lg font-semibold text-primary mb-1">Phase 3 : Communauté & IA Avancée</h3>
+                    <p class="text-sm text-gray-600">Développement Forum & Actualités (avec résumés IA). Fonctions carto avancées. Calculateurs sophistiqués. Affinement des modèles IA.</p>
+                </div>
+                 <div class="timeline-item border-transparent">
+                    <div class="timeline-dot bg-green-500"></div>
+                    <h3 class="text-lg font-semibold text-green-600 mb-1">Itérations Continues</h3>
+                    <p class="text-sm text-gray-600">Améliorations basées sur les retours utilisateurs, ajout de nouvelles cultures/animaux, maintenance et optimisation continue des fonctionnalités IA.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="defis" class="section-card">
+            <h2 class="text-2xl font-semibold section-title">Surmonter les Défis pour un Impact Maximal</h2>
+            <p class="mb-6 text-gray-700">Plusieurs défis devront être relevés pour assurer le succès et l'adoption large d'AgriTunisie Connect, y compris ceux liés à l'intégration de l'IA.</p>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                <li><strong class="text-accent2">Connectivité Internet :</strong> Crucialité du mode hors-ligne.</li>
+                <li><strong class="text-accent2">Adoption Technologique & IA :</strong> Nécessité d'une interface ultra-simple et d'expliquer la valeur de l'IA.</li>
+                <li><strong class="text-accent2">Qualité des Données :</strong> Fiabilité des données pour l'IA et les prix.</li>
+                <li><strong class="text-accent2">Maintenance & Évolution IA :</strong> Application et modèles IA en constante évolution.</li>
+                <li><strong class="text-accent2">Coût des API IA :</strong> Gestion des coûts d'utilisation de l'API Gemini à grande échelle.</li>
+            </ul>
+        </section>
+
+        <footer class="text-center mt-12 py-8 border-t border-gray-300">
+            <p class="text-gray-600">&copy; <span id="currentYear"></span> AgriTunisie Connect. Un avenir connecté et intelligent pour l'agriculture tunisienne.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const targetAudienceCtx = document.getElementById('targetAudienceChart').getContext('2d');
+        const targetAudienceChart = new Chart(targetAudienceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    ['Petites Exploitations', 'Familiales (Illustratif)'], 
+                    ['Grandes Entreprises', 'Agricoles (Illustratif)']
+                ],
+                datasets: [{
+                    label: 'Répartition du Public Cible',
+                    data: [65, 35], 
+                    backgroundColor: [
+                        '#00A0B0', 
+                        '#FFD700'  
+                    ],
+                    borderColor: [
+                        '#FFFFFF',
+                        '#FFFFFF'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
