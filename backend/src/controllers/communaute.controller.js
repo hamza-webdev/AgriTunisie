@@ -1,5 +1,5 @@
 // backend/src/controllers/communaute.controller.js
-const communauteServiceInstance = new (require('../services/communaute.service'))();
+const communauteServiceInstance = require('../services/communaute.service');
 
 exports.getCategories = async (req, res, next) => {
     const { page, limit } = req.query;

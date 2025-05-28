@@ -1,5 +1,5 @@
 // backend/src/controllers/elevage.controller.js
-const elevageServiceInstance = new (require('../services/elevage.service'))();
+const elevageServiceInstance = require('../services/elevage.service');
 
 exports.getTypesAnimaux = async (req, res, next) => {
     const { page, limit } = req.query;

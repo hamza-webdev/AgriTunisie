@@ -1,5 +1,6 @@
 // backend/src/controllers/meteo.controller.js
-const meteoServiceInstance = new MeteoService(); // Utilisation directe pour l'exemple
+const meteoServiceInstance = require('../services/meteo.service');
+//const meteoServiceInstance = new MeteoService(); // Utilisation directe pour l'exemple
 
 exports.getPrevisionsMeteo = async (req, res, next) => {
     const { latitude, longitude, units } = req.query;

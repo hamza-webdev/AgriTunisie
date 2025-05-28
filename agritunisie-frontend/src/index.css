@@ -1,0 +1,65 @@
+/* src/index.css */
+
+/* 1. Inclure les directives de base de Tailwind CSS. */
+/* Celles-ci injectent les styles de base de Tailwind, les composants, et les utilitaires. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Styles de base personnalisés (Optionnel mais recommandé) */
+body {
+  @apply font-sans antialiased text-gray-800 bg-gray-50;
+  /* font-family: 'Inter', sans-serif; */ /* Décommentez si vous avez configuré 'Inter' dans votre tailwind.config.js et importé la police via un CDN ou localement */
+  margin: 0; /* Assure qu'il n'y a pas de marge par défaut */
+  -webkit-font-smoothing: antialiased; /* Améliore le rendu des polices sur WebKit */
+  -moz-osx-font-smoothing: grayscale; /* Améliore le rendu des polices sur Firefox */
+}
+
+/* Exemple d'un style global pour les titres si vous le souhaitez,
+   bien que Tailwind encourage l'utilisation de classes utilitaires directement. */
+/*
+h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold text-gray-900;
+}
+*/
+
+/* Styles pour une meilleure accessibilité du focus (optionnel) */
+*:focus-visible {
+  @apply outline-none ring-2 ring-green-500 ring-offset-2;
+}
+
+/* Styles pour les barres de défilement (optionnel, pour un look plus moderne sur les navigateurs compatibles) */
+/* WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px; /* Largeur de la barre de défilement verticale */
+  height: 8px; /* Hauteur de la barre de défilement horizontale */
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100; /* Couleur de la piste */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-green-500 rounded-full; /* Couleur du pouce */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-green-600; /* Couleur du pouce au survol */
+}
+
+/* Firefox (nécessite des propriétés plus récentes, peut ne pas être aussi personnalisable) */
+/* Pour Firefox, vous pouvez utiliser scrollbar-width et scrollbar-color sur l'élément html ou body */
+/* html {
+  scrollbar-width: thin;
+  scrollbar-color: #16a34a #f3f4f6; // Pouce et piste
+} */
+
+/* Assurez-vous que votre application occupe toute la hauteur */
+#root, html, body {
+  height: 100%;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
