@@ -7,12 +7,12 @@ exports.getPrevisionsMeteo = async (req, res, next) => {
         const previsions = await meteoServiceInstance.getPrevisions(parseFloat(latitude), parseFloat(longitude), units);
         res.status(200).json(previsions);
     } catch (error) {
-        console.error("Erreur contrôleur getPrevisionsMeteo:", error.message);
-        // Gérer les erreurs spécifiques de l'API externe si nécessaire
-        if (error.response && error.response.status) { // Erreur Axios par exemple
-            return res.status(error.response.status).json({ message: error.response.data.message || "Erreur de l'API météo externe." });
+        // Les erreurs spécifiques (401, 503) sont déjà gérées par le service
+        if (error.status) {
+            return res.status(error.status).json({ message: error.message });
         }
-        next(error);
+        console.error("Erreur contrôleur getPrevisionsMeteo:", error.message);
+        next(error); // Pour les erreurs inattendues
     }
 };
 
@@ -22,6 +22,9 @@ exports.getHistoriqueMeteo = async (req, res, next) => {
         const historique = await meteoServiceInstance.getHistorique(parseFloat(latitude), parseFloat(longitude), dateStart, dateEnd);
         res.status(200).json(historique);
     } catch (error) {
+        if (error.status) {
+            return res.status(error.status).json({ message: error.message });
+        }
         console.error("Erreur contrôleur getHistoriqueMeteo:", error.message);
         next(error);
     }

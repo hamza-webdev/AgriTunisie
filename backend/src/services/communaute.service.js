@@ -51,4 +51,4 @@ class CommunauteService {
         return { data: data.rows, pagination: { currentPage: page, totalPages: Math.ceil(parseInt(count.rows[0].count)/limit), totalItems: parseInt(count.rows[0].count), limit } };
     }
 }
- module.exports = new CommunauteService();
+module.exports = new CommunauteService();

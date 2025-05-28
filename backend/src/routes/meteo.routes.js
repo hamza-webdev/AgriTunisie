@@ -10,5 +10,4 @@ routerMeteo.use(authenticateTokenMeteo); // Protéger toutes les routes météo
 routerMeteo.get('/previsions', meteoValidator.previsionsMeteoValidationRules(), meteoValidator.validateMeteo, meteoController.getPrevisionsMeteo);
 routerMeteo.get('/historique', meteoValidator.historiqueMeteoValidationRules(), meteoValidator.validateMeteo, meteoController.getHistoriqueMeteo);
 
-module.exports = routerMeteo; // Décommentez pour l'utiliser
-
+module.exports = routerMeteo;

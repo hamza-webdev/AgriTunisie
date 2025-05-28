@@ -15,4 +15,3 @@ routerComm.post('/posts', commValidator.createPostRules(), commValidator.validat
 routerComm.post('/posts/:postId/commentaires', commValidator.idParamRules('postId'), commValidator.addCommentRules(), commValidator.validateComm, commController.addCommentToPost);
 
 module.exports = routerComm;
-
