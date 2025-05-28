@@ -1,5 +1,16 @@
 // src/pages/parcelles/ParcelleFormPage.js
-export const ParcelleFormPage = ({ navigateTo, parcelleId }) => {
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { apiService } from '../../services/apiService';
+import * as parcelleService from '../../services/parcelleService';
+import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { Card } from '../../components/common/Card';
+import { Alert } from '../../components/common/Alert';
+import { Input } from '../../components/common/Input';
+import { Button } from '../../components/common/Button';
+import { Edit3, PlusCircle } from 'lucide-react';
+
+const ParcelleFormPage = ({ navigateTo, parcelleId }) => {
     const [nomParcelle, setNomParcelle] = useState('');
     const [description, setDescription] = useState('');
     const [superficie, setSuperficie] = useState('');
@@ -10,7 +21,7 @@ export const ParcelleFormPage = ({ navigateTo, parcelleId }) => {
     const [loadingState, setLoadingState] = useState(false);
     const [formError, setFormError] = useState('');
     const [formSuccess, setFormSuccess] = useState('');
-    const { logout } = useAuth();
+    const { logout, isAuthenticated } = useAuth(); // Add isAuthenticated
     const isEditing = !!parcelleId;
 
     useEffect(() => {
@@ -19,7 +30,7 @@ export const ParcelleFormPage = ({ navigateTo, parcelleId }) => {
             catch (err) { console.error("Erreur chargement catalogue cultures:", err); }
         };
         fetchCultures();
-        if (isEditing) {
+        if (isEditing && isAuthenticated) { // Check isAuthenticated for edit mode fetching
             setLoadingState(true);
             parcelleService.getParcelleById(parcelleId)
                 .then(data => {
@@ -31,8 +42,11 @@ export const ParcelleFormPage = ({ navigateTo, parcelleId }) => {
                     setFormError(err.message || "Erreur chargement parcelle.");
                     if (err.message.includes("401")) { logout(); navigateTo('login'); } setLoadingState(false);
                 });
+        } else if (isEditing && !isAuthenticated) { // If trying to edit but not authenticated
+            logout();
+            navigateTo('login');
         }
-    }, [parcelleId, isEditing, logout, navigateTo]);
+    }, [parcelleId, isEditing, logout, navigateTo, isAuthenticated]); // Add isAuthenticated
 
     const handleSubmit = async (e) => {
         e.preventDefault(); setFormError(''); setFormSuccess(''); setLoadingState(true);
@@ -72,3 +86,4 @@ export const ParcelleFormPage = ({ navigateTo, parcelleId }) => {
         </Card>
     );
 };
+export default ParcelleFormPage;

@@ -1,3 +1,6 @@
+import React from 'react';
+import { Info, CheckCircle, AlertTriangle, XCircle, X } from 'lucide-react';
+
 export const Alert = ({ message, type = 'info', onClose }) => {
     const baseStyle = "p-4 mb-4 rounded-md flex items-center justify-between";
     const types = { info: "bg-blue-100 text-blue-700", success: "bg-green-100 text-green-700", warning: "bg-yellow-100 text-yellow-700", error: "bg-red-100 text-red-700" };

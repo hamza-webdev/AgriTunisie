@@ -1,5 +1,14 @@
 // src/pages/LoginPage.js
-export const LoginPage = ({ navigateTo }) => {
+import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { Card } from '../components/common/Card';
+import { Input } from '../components/common/Input';
+import { Button } from '../components/common/Button';
+import { Alert } from '../components/common/Alert';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { LogIn } from 'lucide-react';
+
+const LoginPage = ({ navigateTo }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -14,7 +23,15 @@ export const LoginPage = ({ navigateTo }) => {
             await login(email, password);
             navigateTo('dashboard');
         } catch (err) {
-            setError(err.message || 'Erreur de connexion. Veuillez vérifier vos identifiants.');
+            let displayError = err.message || 'Erreur de connexion. Veuillez vérifier vos identifiants.';
+            // Vérifier si des détails d'erreur spécifiques sont disponibles
+            if (err.details && Array.isArray(err.details)) {
+                const specificMessages = err.details.map(detail => Object.values(detail)[0]);
+                if (specificMessages.length > 0) {
+                    displayError = specificMessages.join(' '); // Concaténer les messages ou prendre le premier
+                }
+            }
+            setError(displayError);
         } finally {
             setLoadingState(false);
         }
@@ -28,10 +45,4 @@ export const LoginPage = ({ navigateTo }) => {
                 <form onSubmit={handleSubmit}>
                     <Input label="Email" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <Input label="Mot de passe" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    <Button type="submit" variant="primary" className="w-full" disabled={loadingState} Icon={loadingState ? null : LogIn}>{loadingState ? <LoadingSpinner size="sm" /> : 'Se Connecter'}</Button>
-                </form>
-                <p className="text-sm text-center mt-4">Pas encore de compte ? <button onClick={() => navigateTo('register')} className="font-medium text-green-600 hover:text-green-500">Inscrivez-vous</button></p>
-            </Card>
-        </div>
-    );
-};
+                    <Button type="submit"

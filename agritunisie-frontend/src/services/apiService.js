@@ -14,7 +14,7 @@ const API_BASE_URL_SERVICE = getApiBaseUrlFromApiService();
 export const apiService = {
     get: async (endpoint) => {
         const token = localStorage.getItem('agritunisie_token');
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const response = await fetch(`${API_BASE_URL_SERVICE}${endpoint}`, { headers: { 'Authorization': `Bearer ${token}` } });
         if (!response.ok) {
             if (response.status === 401) console.warn("API call 401 (apiService)");
             const errorData = await response.json().catch(() => ({ message: response.statusText }));
@@ -24,7 +24,7 @@ export const apiService = {
     },
     post: async (endpoint, data) => {
         const token = localStorage.getItem('agritunisie_token');
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${API_BASE_URL_SERVICE}${endpoint}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify(data),
@@ -37,7 +37,7 @@ export const apiService = {
     },
     put: async (endpoint, data) => {
         const token = localStorage.getItem('agritunisie_token');
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${API_BASE_URL_SERVICE}${endpoint}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify(data),
@@ -50,7 +50,7 @@ export const apiService = {
     },
     delete: async (endpoint) => {
         const token = localStorage.getItem('agritunisie_token');
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${API_BASE_URL_SERVICE}${endpoint}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` },
         });

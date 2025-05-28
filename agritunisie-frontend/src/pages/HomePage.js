@@ -1,7 +1,7 @@
 // src/pages/HomePage.js
 import React from 'react';
-import { Card } from '../../../agritunisie-frontend/src/components/common/Card'; // Adapter chemin
-import { Button } from '../../../agritunisie-frontend/src/components/common/Button'; // Adapter chemin
+import { Card } from '../components/common/Card';
+import { Button } from '../components/common/Button';
 import { Shield, MapPinned, Leaf } from 'lucide-react';
 
 export const HomePage = ({ navigateTo }) => { // Exporter directement
@@ -21,17 +21,4 @@ export const HomePage = ({ navigateTo }) => { // Exporter directement
 // ... (Autres pages : LoginPage, RegisterPage, DashboardPage, ParcellesListPage, ParcelleFormPage, ParcelleDetailPage, etc. à mettre dans leurs propres fichiers)
 // ... (S'assurer d'importer useAuth, les services, les composants communs avec les bons chemins relatifs)
 
-
-// Pour que le code ci-dessus fonctionne comme un seul fichier exécutable (ce qui n'est pas l'objectif final mais permet de le tester dans cet environnement):
-// 1. Toutes les déclarations `export const ...` deviendraient de simples `const ...` sauf pour le composant racine.
-// 2. Les imports relatifs seraient supprimés car tout est dans le même fichier.
-// 3. Le composant AgriApp serait le seul export par défaut.
-
-// Composant racine pour l'exportation dans cet exemple de fichier unique
-const AgriApp = () => (
-    <AuthProvider>
-        <AppRouter />
-    </AuthProvider>
-);
-
-export default AgriApp;
+export default HomePage; // Export HomePage as default

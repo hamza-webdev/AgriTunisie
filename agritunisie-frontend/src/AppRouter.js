@@ -1,6 +1,6 @@
 // src/AppRouter.js (Anciennement le composant App, gère la logique de navigation)// Retiré useCallback car navigateTo n'est plus dans les deps
-import { AuthContext, useAuth } from './contexts/AuthContext'; // Assurez-vous que le chemin est correct
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { useAuth } from './contexts/AuthContext'; // Assurez-vous que le chemin est correct
+import React, { useState, useEffect, useCallback } from 'react';
 
 // Importer les layouts et les pages
 import MainLayout from './components/layout/MainLayout'; // Chemin exemple
@@ -19,7 +19,6 @@ import CommunautePage from './pages/communaute/CommunautePage';
 import GeminiPage from './pages/gemini/GeminiPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { LoadingSpinner } from './components/common/LoadingSpinner'; // Chemin exemple
-import { Shield, LogIn, UserPlus, MapPinned, PlusCircle, Home, LogOut, Sun, Moon, Leaf, Tractor, ShoppingCart, MessageSquare, BarChart3, AlertTriangle, Settings, ChevronDown, Search, Filter, Edit3, Trash2, Info, Eye, EyeOff, UploadCloud, CheckCircle, XCircle, CalendarDays, Users, DollarSign, Brain, Menu, X } from 'lucide-react';
 
 
 function AppRouterInternal() {
@@ -27,24 +26,13 @@ function AppRouterInternal() {
     const [pageParam, setPageParam] = useState(null);
     const { isAuthenticated, loading: authLoading } = useAuth(); // Utilise useAuth ici
 
-    const getApiBaseUrl = () => {
-    try {
-        if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) {
-            return process.env.REACT_APP_API_URL;
-        }
-    } catch (e) {
-        console.warn("AppRouter: Impossible d'accéder à process.env.REACT_APP_API_URL, utilisation de l'URL par défaut.", e);
-    }
-    return 'http://localhost:3001/api';
-    };
-    const API_BASE_URL = getApiBaseUrl(); // Utilisé par AuthContext et apiService définis ci-dessous
 
 
-    const navigateTo = (page, param = null) => {
+    const navigateTo = useCallback((page, param = null) => {
         setCurrentPage(page);
         setPageParam(param);
         window.scrollTo(0, 0);
-    };
+    }, []); // setCurrentPage and setPageParam are stable and don't need to be listed as dependencies
 
     useEffect(() => {
         if (!authLoading) {
@@ -59,7 +47,7 @@ function AppRouterInternal() {
                 }
             }
         }
-    }, [isAuthenticated, authLoading, currentPage]); // navigateTo a été retiré des dépendances
+    }, [isAuthenticated, authLoading, currentPage, navigateTo]);
 
     if (authLoading) {
         return (

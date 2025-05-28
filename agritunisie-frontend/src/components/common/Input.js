@@ -1,3 +1,4 @@
+import React from 'react';
 export const Input = ({ type = 'text', placeholder, value, onChange, name, label, required, error }) => (
     <div className="mb-4">
         {label && <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}{required && <span className="text-red-500">*</span>}</label>}

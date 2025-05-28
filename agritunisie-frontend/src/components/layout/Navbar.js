@@ -1,5 +1,5 @@
 // src/components/layout/Navbar.js
-import React, { useState, useContext } from 'react'; // Déjà importé
+import React, { useState } from 'react'; // Déjà importé
 import { useAuth } from '../../contexts/AuthContext'; // Adapter le chemin
 import { Button } from '../common/Button'; // Adapter le chemin
 import { Shield, LogIn, UserPlus, Home, LogOut, MapPinned, Leaf, Tractor, ShoppingCart, Sun, MessageSquare, Brain, Menu, X } from 'lucide-react';

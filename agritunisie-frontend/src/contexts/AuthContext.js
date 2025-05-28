@@ -26,33 +26,39 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('agritunisie_user');
     }, []);
 
-    useEffect(() => {
+     useEffect(() => {
         if (token) {
             try {
                 const storedUser = localStorage.getItem('agritunisie_user');
                 if (storedUser) {
                     setUser(JSON.parse(storedUser));
                 } else {
-                    logout();
+                    logout(); // This changes 'token'
                 }
             } catch (error) {
                 console.error("Erreur AuthContext: récupération utilisateur localStorage", error);
-                logout();
+                logout(); // This changes 'token'
             }
         }
-        setLoadingAuth(false);
-    }, [token, logout]);
+        setLoadingAuth(false); // Mark initial loading as complete after token check
+    }, [token, logout]);// loadingAuth is not a dependency for this effect's primary purpose of initial check
 
     const login = async (email, password) => {
         setLoadingAuth(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            const response = await fetch(`${API_BASE_URL_CONTEXT}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
             const data = await response.json();
-            if (!response.ok) throw new Error(data.message || 'Échec de la connexion');
+            if (!response.ok) {
+                const errorToThrow = new Error(data.message || 'Échec de la connexion');
+                if (data.errors) { // Supposant que le backend renvoie un champ 'errors'
+                    errorToThrow.details = data.errors;
+                }
+                throw errorToThrow;
+            }
             setToken(data.token);
             setUser(data.user);
             localStorage.setItem('agritunisie_token', data.token);
@@ -69,7 +75,7 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         setLoadingAuth(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            const response = await fetch(`${API_BASE_URL_CONTEXT}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData),
@@ -86,10 +92,4 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContextInstance.Provider value={{ user, token, login, register, logout, loading: loadingAuth, isAuthenticated: !!token }}>
-            {children}
-        </AuthContextInstance.Provider>
-    );
-};
-
-export const useAuth = () => useContext(AuthContextInstance);
+        <AuthContextInsta

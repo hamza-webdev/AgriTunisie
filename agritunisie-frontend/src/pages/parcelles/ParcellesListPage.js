@@ -1,23 +1,39 @@
 // src/pages/parcelles/ParcellesListPage.js
-export const ParcellesListPage = ({ navigateTo }) => {
+import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../../contexts/AuthContext'; // Adapter si nécessaire
+import * as parcelleService from '../../services/parcelleService'; // Adapter si nécessaire
+import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { Card } from '../../components/common/Card';
+import { Button } from '../../components/common/Button';
+import { Alert } from '../../components/common/Alert';
+import { PlusCircle, Eye, Edit3, Trash2 } from 'lucide-react';
+
+
+const ParcellesListPage = ({ navigateTo }) => {
     const [parcelles, setParcelles] = useState([]);
     const [loadingState, setLoadingState] = useState(true);
     const [error, setError] = useState('');
     const [pagination, setPagination] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const { logout } = useAuth();
+    const { logout, isAuthenticated } = useAuth(); // Get isAuthenticated
 
     const fetchParcelles = useCallback(async (page) => {
+        if (!isAuthenticated) { // Guard: Don't fetch if not authenticated
+            setLoadingState(false); // Ensure loading indicator is off
+            // AppRouter should handle navigation to login if on a protected route
+            return;
+        }
         setLoadingState(true); setError('');
         try {
             const data = await parcelleService.getUserParcelles(page);
             setParcelles(data.data);
             setPagination(data.pagination);
         } catch (err) {
-            setError(err.message || "Erreur lors de la récupération des parcelles.");
+            const errorMessage = err.message || "Erreur lors de la récupération des parcelles.";
+            setError(errorMessage);
             if (err.message.includes("401") || err.message.includes("Accès non autorisé")) { logout(); navigateTo('login'); }
-        } finally { setLoadingState(false); }
-    }, [logout, navigateTo]);
+        } finally { if (isAuthenticated) setLoadingState(false); } // Only set loading false if we were actually trying to load
+    }, [logout, navigateTo, isAuthenticated]); // Add isAuthenticated as a dependency
 
     useEffect(() => { fetchParcelles(currentPage); }, [fetchParcelles, currentPage]);
 
@@ -44,3 +60,4 @@ export const ParcellesListPage = ({ navigateTo }) => {
         </Card>
     );
 };
+export default ParcellesListPage;

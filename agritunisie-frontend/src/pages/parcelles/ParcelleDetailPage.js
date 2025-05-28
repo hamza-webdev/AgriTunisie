@@ -1,12 +1,21 @@
 // src/pages/parcelles/ParcelleDetailPage.js
-export const ParcelleDetailPage = ({ navigateTo, parcelleId }) => {
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import * as parcelleService from '../../services/parcelleService'; // Assurez-vous que le chemin est correct et que l'import est correct (named/default)
+import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { Alert } from '../../components/common/Alert';
+import { Card } from '../../components/common/Card';
+import { Button } from '../../components/common/Button';
+import { Edit3 } from 'lucide-react';
+
+const ParcelleDetailPage = ({ navigateTo, parcelleId }) => {
     const [parcelle, setParcelle] = useState(null);
     const [loadingState, setLoadingState] = useState(true);
     const [error, setError] = useState('');
-    const { logout } = useAuth();
+    const { logout, isAuthenticated } = useAuth(); // Add isAuthenticated
 
     useEffect(() => {
-        if (parcelleId) {
+        if (parcelleId && isAuthenticated) { // Check isAuthenticated
             setLoadingState(true);
             parcelleService.getParcelleById(parcelleId)
                 .then(data => { setParcelle(data); setLoadingState(false); })
@@ -14,8 +23,11 @@ export const ParcelleDetailPage = ({ navigateTo, parcelleId }) => {
                     setError(err.message || "Erreur chargement détails parcelle.");
                     if (err.message.includes("401")) { logout(); navigateTo('login'); } setLoadingState(false);
                 });
+        } else if (!isAuthenticated && parcelleId) { // If not authenticated but trying to load detail
+            logout(); // Ensure logout state is consistent
+            navigateTo('login');
         }
-    }, [parcelleId, logout, navigateTo]);
+    }, [parcelleId, logout, navigateTo, isAuthenticated]); // Add isAuthenticated
 
     if (loadingState) return <div className="flex justify-center mt-10"><LoadingSpinner size="lg" /></div>;
     if (error) return <Alert message={error} type="error" />;
@@ -33,3 +45,4 @@ export const ParcelleDetailPage = ({ navigateTo, parcelleId }) => {
         </Card>
     );
 };
+export default ParcelleDetailPage;

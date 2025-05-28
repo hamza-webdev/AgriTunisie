@@ -1,5 +1,14 @@
 // src/pages/RegisterPage.js
-export const RegisterPage = ({ navigateTo }) => {
+import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { Card } from '../components/common/Card';
+import { Input } from '../components/common/Input';
+import { Button } from '../components/common/Button';
+import { Alert } from '../components/common/Alert';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { UserPlus } from 'lucide-react';
+
+const RegisterPage = ({ navigateTo }) => {
     const [nomComplet, setNomComplet] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -44,3 +53,4 @@ export const RegisterPage = ({ navigateTo }) => {
         </div>
     );
 };
+export default RegisterPage;

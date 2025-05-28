@@ -1,4 +1,10 @@
-export const DashboardPage = ({ navigateTo }) => {
+import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { Card } from '../components/common/Card';
+import { Button } from '../components/common/Button';
+import { MapPinned, Sun, ShoppingCart } from 'lucide-react';
+
+const DashboardPage = ({ navigateTo }) => {
     const { user } = useAuth();
     return (
         <Card>
@@ -13,3 +19,4 @@ export const DashboardPage = ({ navigateTo }) => {
         </Card>
     );
 };
+export default DashboardPage;
