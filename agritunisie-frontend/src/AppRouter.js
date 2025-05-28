@@ -1,5 +1,4 @@
-// src/AppRouter.js (Anciennement le composant App, gère la logique de navigation)
-import React, { useState, useEffect, useContext } from 'react'; // Retiré useCallback car navigateTo n'est plus dans les deps
+// src/AppRouter.js (Anciennement le composant App, gère la logique de navigation)// Retiré useCallback car navigateTo n'est plus dans les deps
 import { AuthContext, useAuth } from './contexts/AuthContext'; // Assurez-vous que le chemin est correct
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 
@@ -27,6 +26,19 @@ function AppRouterInternal() {
     const [currentPage, setCurrentPage] = useState('home');
     const [pageParam, setPageParam] = useState(null);
     const { isAuthenticated, loading: authLoading } = useAuth(); // Utilise useAuth ici
+
+    const getApiBaseUrl = () => {
+    try {
+        if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) {
+            return process.env.REACT_APP_API_URL;
+        }
+    } catch (e) {
+        console.warn("AppRouter: Impossible d'accéder à process.env.REACT_APP_API_URL, utilisation de l'URL par défaut.", e);
+    }
+    return 'http://localhost:3001/api';
+    };
+    const API_BASE_URL = getApiBaseUrl(); // Utilisé par AuthContext et apiService définis ci-dessous
+
 
     const navigateTo = (page, param = null) => {
         setCurrentPage(page);

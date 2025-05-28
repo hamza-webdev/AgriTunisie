@@ -17,7 +17,7 @@ const AuthContextInstance = createContext(null); // Renommé pour éviter confli
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('agritunisie_token'));
-    const [loading, setLoading] = useState(true);
+    const [loadingAuth, setLoadingAuth] = useState(true); // Renommé pour clarté
 
     const logout = useCallback(() => {
         setToken(null);
@@ -40,46 +40,56 @@ export const AuthProvider = ({ children }) => {
                 logout();
             }
         }
-        setLoading(false);
+        setLoadingAuth(false);
     }, [token, logout]);
 
     const login = async (email, password) => {
-        // ... (logique de login comme avant, utilisant API_BASE_URL_CONTEXT)
+        setLoadingAuth(true);
         try {
-            const response = await fetch(`${API_BASE_URL_CONTEXT}/auth/login`, { /* ... */ });
-            // ... reste de la logique de login
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Échec de la connexion');
             setToken(data.token);
             setUser(data.user);
             localStorage.setItem('agritunisie_token', data.token);
             localStorage.setItem('agritunisie_user', JSON.stringify(data.user));
+            setLoadingAuth(false);
             return data;
         } catch (error) {
             console.error("Erreur de connexion (AuthContext):", error);
+            setLoadingAuth(false);
             throw error;
         }
     };
 
     const register = async (userData) => {
-        // ... (logique de register comme avant, utilisant API_BASE_URL_CONTEXT)
+        setLoadingAuth(true);
         try {
-            const response = await fetch(`${API_BASE_URL_CONTEXT}/auth/register`, { /* ... */ });
-            // ... reste de la logique de register
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData),
+            });
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Échec de l\'inscription');
+            setLoadingAuth(false);
             return data;
         } catch (error) {
             console.error("Erreur d'inscription (AuthContext):", error);
+            setLoadingAuth(false);
             throw error;
         }
     };
 
     return (
-        <AuthContextInstance.Provider value={{ user, token, login, register, logout, loading, isAuthenticated: !!token }}>
+        <AuthContextInstance.Provider value={{ user, token, login, register, logout, loading: loadingAuth, isAuthenticated: !!token }}>
             {children}
         </AuthContextInstance.Provider>
     );
 };
 
-export const useAuth = () => useContext(AuthContextInstance); // Exporter si AuthContext.js est un fichier séparé
+export const useAuth = () => useContext(AuthContextInstance);
