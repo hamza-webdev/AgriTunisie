@@ -1,30 +1,28 @@
 // backend/src/controllers/culture.controller.js
-const db = require('../config/db.config');
+const cultureService = require('../services/culture.service');
 
-// Obtenir toutes les cultures du catalogue
 exports.getAllCultures = async (req, res, next) => {
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+
     try {
-        const query = 'SELECT id, nom_culture, description_generale, periode_semis_ideale_debut, periode_semis_ideale_fin FROM cultures_catalogue ORDER BY nom_culture;';
-        const result = await db.query(query);
-        res.status(200).json(result.rows);
+        const result = await cultureService.getAll({ page, limit });
+        res.status(200).json(result);
     } catch (error) {
-        console.error("Erreur lors de la récupération du catalogue des cultures:", error);
-        next(error);
+        // Pas besoin de logguer ici si déjà fait dans le service
+        next(error); // Transmet à la gestion d'erreur globale
     }
 };
 
-// Obtenir une culture spécifique par son ID
 exports.getCultureById = async (req, res, next) => {
-    const { id } = req.params;
+    const { id } = req.params; // Supposons que l'ID est validé par un middleware
     try {
-        const query = 'SELECT * FROM cultures_catalogue WHERE id = $1;';
-        const result = await db.query(query, [id]);
-        if (result.rows.length === 0) {
+        const culture = await cultureService.getById(id);
+        if (!culture) {
             return res.status(404).json({ message: "Culture non trouvée dans le catalogue." });
         }
-        res.status(200).json(result.rows[0]);
+        res.status(200).json(culture);
     } catch (error) {
-        console.error("Erreur lors de la récupération de la culture:", error);
         next(error);
     }
 };
