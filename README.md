@@ -1,40 +1,47 @@
-npm install express cors helmet morgan pg jsonwebtoken bcryptjs dotenv 
-# Dans votre dossier backend/
-npm install express-validator
-(et sequelize pg pg-hstore
+# AgriTunisie Connect  농업 지원 애플리케이션 🇹🇳
 
+Bienvenue sur AgriTunisie Connect, une application web et mobile conçue pour aider l'agriculteur tunisien dans ses tâches quotidiennes, de la plantation à la gestion de l'élevage, en passant par l'accès aux prix du marché et aux informations météorologiques.
 
-Points Clés de ces Améliorations :
-Validation (express-validator) :
+## Table des Matières
 
-Les règles sont définies de manière déclarative.
-Le middleware validate centralise la gestion des erreurs de validation et renvoie une réponse 422 Unprocessable Entity.
-Une validation personnalisée validateGeoJSON a été ajoutée (très basique, à renforcer pour la production).
-Couche de Service (parcelle.service.js) :
+1.  [Aperçu du Projet](#aperçu-du-projet)
+2.  [Fonctionnalités Clés](#fonctionnalités-clés)
+3.  [Structure du Projet](#structure-du-projet)
+4.  [Prérequis](#prérequis)
+5.  [Installation et Démarrage](#installation-et-démarrage)
+    * [Backend](#backend)
+    * [Frontend](#frontend)
+6.  [Configuration de l'Environnement](#configuration-de-lenvironnement)
+7.  [Utilisation de l'API](#utilisation-de-lapi)
+8.  [Contribuer](#contribuer)
 
-La logique d'interaction avec la base de données et la logique métier sont déplacées dans le service.
-Les contrôleurs deviennent plus minces et se concentrent sur la gestion des requêtes/réponses HTTP et l'appel aux services.
-Le service peut lever des erreurs personnalisées avec un status et un message pour une gestion plus fine dans le contrôleur.
-Pagination (getUserParcelles) :
+---
 
-Le service findByUserId accepte des paramètres page et limit.
-Il effectue deux requêtes : une pour les données paginées (LIMIT, OFFSET) et une pour le nombre total d'éléments.
-La réponse inclut les données et un objet pagination avec les informations nécessaires pour le frontend.
-Gestion des Erreurs Améliorée :
+## 1. Aperçu du Projet
 
-Les contrôleurs attrapent les erreurs des services. Si l'erreur a un status (erreur métier personnalisée), ils renvoient cette réponse. Sinon, ils passent à la gestion d'erreur globale d'Express.
-Codes de statut HTTP plus précis (400, 404, 422, 201, 200).
+AgriTunisie Connect vise à moderniser l'accès à l'information et aux outils pour les agriculteurs en Tunisie. L'application intègre des services de cartographie, des données météorologiques, une bourse des prix, des conseils de culture et d'élevage, ainsi que des fonctionnalités communautaires et d'assistance basées sur l'IA.
 
-Les prochaines étapes consisteraient à :
+**Technologies principales :**
+* **Frontend :** React, Tailwind CSS
+* **Backend :** Node.js, Express.js
+* **Base de données :** PostgreSQL avec PostGIS
+* **IA :** Intégration de l'API Gemini
+* **Météo :** OpenWeatherMap API (ou autre)
 
-Implémenter les routes et contrôleurs/services pour les autres modules (Météo, Élevage, Communauté, Gemini IA) en suivant des principes similaires.
-Affiner la gestion des erreurs : Créer un middleware d'erreur global plus sophistiqué dans server.js pour gérer différents types d'erreurs (erreurs de base de données, erreurs métier, etc.) et renvoyer des réponses standardisées.
-Tests : Écrire des tests unitaires pour les services et des tests d'intégration pour les routes/contrôleurs.
-Sécurité : Revoir tous les aspects de sécurité (protection contre les injections SQL si vous n'utilisez pas d'ORM, XSS, CSRF, configuration des en-têtes de sécurité avec Helmet, etc.).
-Documentation API : Utiliser des outils comme Swagger/OpenAPI pour documenter vos endpoints.
+---
 
-Nous allons conserver la même approche structurée, en séparant la logique métier dans les services, la gestion des requêtes HTTP dans les contrôleurs, et en utilisant des middlewares pour l'authentification,
+## 2. Fonctionnalités Clés
 
+* **Gestion des Parcelles :** Dessin et gestion des parcelles sur une carte.
+* **Assistant de Culture :** Informations et calendrier pour diverses cultures.
+* **Assistant d'Élevage :** Conseils pour la nutrition et la santé animale.
+* **Bourse des Prix :** Suivi des prix des produits agricoles par région.
+* **Météo Agricole :** Prévisions et historique météo localisés.
+* **Communauté :** Forum d'échange entre agriculteurs.
+* **Conseils IA :** Recommandations personnalisées via l'API Gemini.
 
+---
 
+## 3. Structure du Projet
 
+Le projet est organisé en deux principaux dossiers à la racine :

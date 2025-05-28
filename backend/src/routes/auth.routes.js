@@ -1,19 +1,10 @@
 // backend/src/routes/auth.routes.js
-const express = require('express');
-const router = express.Router();
-const authController = require('../controllers/auth.controller');
-// const { validateRegistration, validateLogin } = require('../middleware/validators/auth.validator'); // Exemple de middleware de validation
+const expressAuth = require('express');
+const routerAuth = expressAuth.Router();
+const authController = require('../controllers/auth.controller'); // Assurez-vous que le chemin est correct
+const authValidator = require('../middleware/validators/auth.validator'); // Assurez-vous que le chemin est correct
 
-// POST /api/auth/register
-router.post('/register', /* validateRegistration, */ authController.register);
+routerAuth.post('/register', authValidator.registerValidationRules(), authValidator.validateAuth, authController.register);
+routerAuth.post('/login', authValidator.loginValidationRules(), authValidator.validateAuth, authController.login);
 
-// POST /api/auth/login
-router.post('/login', /* validateLogin, */ authController.login);
-
-// POST /api/auth/refresh-token (optionnel)
-// router.post('/refresh-token', authController.refreshToken);
-
-// POST /api/auth/logout (optionnel, si vous gérez des sessions ou des refresh tokens côté serveur)
-// router.post('/logout', authController.logout);
-
-module.exports = router;
+module.exports = routerAuth; // Sera utilisé dans index.routes.js

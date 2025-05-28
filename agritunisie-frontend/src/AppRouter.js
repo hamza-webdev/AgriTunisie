@@ -23,7 +23,7 @@ import { LoadingSpinner } from './components/common/LoadingSpinner'; // Chemin e
 import { Shield, LogIn, UserPlus, MapPinned, PlusCircle, Home, LogOut, Sun, Moon, Leaf, Tractor, ShoppingCart, MessageSquare, BarChart3, AlertTriangle, Settings, ChevronDown, Search, Filter, Edit3, Trash2, Info, Eye, EyeOff, UploadCloud, CheckCircle, XCircle, CalendarDays, Users, DollarSign, Brain, Menu, X } from 'lucide-react';
 
 
-function AppRouter() {
+function AppRouterInternal() {
     const [currentPage, setCurrentPage] = useState('home');
     const [pageParam, setPageParam] = useState(null);
     const { isAuthenticated, loading: authLoading } = useAuth(); // Utilise useAuth ici
@@ -82,4 +82,4 @@ function AppRouter() {
         </MainLayout>
     );
 }
-export default AppRouter; // Exporter si utilisé dans AgriApp.js
+export default AppRouterInternal; // Exporter si utilisé dans AgriApp.js
