@@ -4,14 +4,16 @@ const jwt = require('jsonwebtoken'); // Assurez-vous d'avoir fait 'npm install j
 exports.authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Format "Bearer TOKEN"
-
+console.log('Token:', token);
     if (token == null) {
         return res.status(401).json({ message: 'Accès non autorisé : Token manquant.' });
     }
-
+console.log('JWT_SECRET:', process.env.JWT_SECRET);
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
+                console.log('JWT_SECRET:', process.env.JWT_SECRET);
+                console.log('Token auth middleweare:', token);
                 return res.status(403).json({ message: 'Accès interdit : Token expiré.' });
             }
             console.error('Erreur de vérification JWT:', err.message);

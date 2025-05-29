@@ -11,8 +11,13 @@ exports.authenticateToken = (req, res, next) => {
     }
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
+        console.log('Token:', token);
+        console.log('JWT_SECRET:', JWT_SECRET);
         if (err) {
             if (err.name === 'TokenExpiredError') {
+                 console.error('Erreur de vérification JWT:', err);
+                 console.log('JWT_SECRET:', process.env.JWT_SECRET);
+                console.log('Token index js', token);
                 return res.status(403).json({ message: 'Accès interdit : Token expiré.' });
             }
             console.error('Erreur de vérification JWT:', err);

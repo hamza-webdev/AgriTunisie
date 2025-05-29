@@ -1,3 +1,11 @@
+Voici le code mis à jour pour votre fichier c:\Users\hamza.bedoui\Documents\mesDocs\AI\AgriTunisie\frontend\src\pages\communaute\CommunautePage.js. Il comprend la logique pour récupérer les posts, les afficher, et un formulaire pour la création et l'édition.
+
+CommunautePage.js
+
+import React from 'react';
+import { Card } from '../../components/common/Card';
+
+const CommunautePage = ({navigateTo}) => <Card><h1 className="text-xl font-semibold">Communauté & Forum (À implémenter)</h1></Card>;
 // src/pages/communaute/CommunautePage.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,8 +20,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 const CommunautePage = ({ navigateTo }) => {
     const { user, token } = useAuth();
-    console.log('User:', user);
-    console.log('Token:', token);
+
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -30,7 +37,7 @@ const CommunautePage = ({ navigateTo }) => {
         try {
             const response = await fetch(`${API_URL}/communaute`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`, // GET requests might not need auth, or might for private communities
+                    // 'Authorization': `Bearer ${token}`, // GET requests might not need auth, or might for private communities
                 },
             });
             if (!response.ok) {
@@ -73,22 +80,19 @@ const CommunautePage = ({ navigateTo }) => {
         setFormLoading(true);
         setError('');
         setSuccess('');
-        console.log('Form data:', formData);
-        console.log('API_URL :', API_URL);
+
         const url = editingPostId ? `${API_URL}/communaute/${editingPostId}` : `${API_URL}/communaute`;
         const method = editingPostId ? 'PUT' : 'POST';
-        
-        console.log('Method:', method);
+
         try {
-            console.log('Sending request to:', url);
             const response = await fetch(url, {
                 method,
                 headers: {
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(formData),
             });
-            console.log('Response:', response.json());
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data.message || (editingPostId ? 'Erreur lors de la mise à jour du post.' : 'Erreur lors de la création du post.'));
@@ -254,3 +258,46 @@ const CommunautePage = ({ navigateTo }) => {
 };
 
 export default CommunautePage;
+Use code with care. Learn more
+Points clés et améliorations dans ce code :
+
+Structure CRUD complète :
+
+fetchPosts: Récupère les posts depuis /api/communaute. J'ai enlevé la dépendance token de useCallback pour fetchPosts car les GET publics ne nécessitent souvent pas d'authentification. Si votre API l'exige, vous pouvez la rajouter.
+Formulaire de création/édition : Un seul formulaire est utilisé. L'état editingPostId détermine si une création (POST) ou une mise à jour (PUT) est effectuée.
+handleSubmit: Gère la soumission du formulaire, y compris la validation de base et les appels API.
+handleEdit: Pré-remplit le formulaire avec les données du post à modifier.
+handleDelete: Supprime un post après confirmation.
+Gestion de l'ID: Utilise post.id || post._id pour une meilleure compatibilité si votre backend utilise _id (MongoDB par exemple).
+Gestion de l'état et UX :
+
+loading, formLoading: États de chargement distincts pour le chargement initial de la page et la soumission du formulaire.
+error, success: Messages d'alerte pour informer l'utilisateur.
+isFormVisible: Contrôle l'affichage du formulaire.
+Interface utilisateur réactive : Affichage de spinners de chargement, de messages pour les états vides, et feedback visuel pour les actions.
+Défilement vers le haut : Lors de l'ouverture du formulaire d'édition, la page défile vers le haut.
+Authentification et Autorisation :
+
+useAuth: Récupère user et token du contexte d'authentification.
+Accès conditionnel :
+Le bouton "Ajouter un Post" et le formulaire ne sont visibles que si l'utilisateur est connecté (user existe).
+Les boutons "Modifier" et "Supprimer" ne sont affichés que si l'utilisateur connecté est l'auteur du post (post.userId === user.id ou post.author.id === user.id) ou s'il a un rôle d'administrateur (user.role === 'admin'). Assurez-vous que votre objet user et post contiennent ces champs (id, role, userId ou author.id).
+Token JWT: Le token est inclus dans les en-têtes des requêtes POST, PUT, et DELETE.
+Composants et Style :
+
+Utilise vos composants communs (Card, Input, Button, Alert, LoadingSpinner).
+Intègre des icônes de lucide-react pour une meilleure interface visuelle.
+Utilise Tailwind CSS pour le style (supposé d'après la structure de votre projet).
+Ajout de p-4 md:p-6 au conteneur principal pour un meilleur espacement.
+Amélioration de la responsivité pour les titres (text-2xl md:text-3xl).
+Robustesse :
+
+Validation simple : Vérifie que le titre et le contenu ne sont pas vides.
+Gestion des erreurs API : Tente de parser les messages d'erreur JSON de l'API.
+Formatage de date amélioré : Affiche l'heure en plus de la date.
+Prochaines étapes pour l'intégration :
+
+Vérifiez les noms de champs : Assurez-vous que les noms de champs comme post.id (ou post._id), post.userId, post.author.id, post.author.nom_complet, user.id, user.role, post.createdAt (ou post.created_at) correspondent exactement à ce que votre API backend fournit et attend.
+API Endpoints : Confirmez que vos endpoints API (/api/communaute, /api/communaute/:id) sont configurés pour gérer les requêtes GET, POST, PUT, et DELETE comme prévu.
+Composants Communs : Vérifiez que les props passées à vos composants communs (Alert, Button, Input, etc.) sont correctes.
+Routing : Intégrez cette CommunautePage dans votre système de routing principal (par exemple, dans App.js ou votre routeur de tableau de bord).
