@@ -11,7 +11,10 @@ import DashboardPage from './pages/DashboardPage';
 import ParcellesListPage from './pages/parcelles/ParcellesListPage';
 import ParcelleFormPage from './pages/parcelles/ParcelleFormPage';
 import ParcelleDetailPage from './pages/parcelles/ParcelleDetailPage';
-import CulturesCataloguePage from './pages/cultures/CulturesCataloguePage';
+// import CulturesCataloguePage from './pages/cultures/CulturesCataloguePage'; // Old page
+import CulturesListPage from './pages/cultures/CulturesListPage'; // Will replace CulturesCataloguePage
+import CultureDetailPage from './pages/cultures/CultureDetailPage'; // To be created
+import CultureFormPage from './pages/cultures/CultureFormPage';   // To be created
 import ElevagePage from './pages/elevage/ElevagePage';
 import PrixPage from './pages/prix/PrixPage';
 import MeteoPage from './pages/meteo/MeteoPage';
@@ -41,7 +44,7 @@ function AppRouterInternal() {
                     navigateTo('dashboard');
                 }
             } else {
-                const protectedPages = ['dashboard', 'parcelles', 'addParcelle', 'editParcelle', 'parcelleDetail', 'elevage', 'meteo', 'communaute', 'gemini'];
+                const protectedPages = ['dashboard', 'parcelles', 'addParcelle', 'editParcelle', 'parcelleDetail', 'elevage', 'meteo', 'communaute', 'gemini', 'culturesList', 'cultureDetail', 'addCulture', 'editCulture'];
                 if (protectedPages.includes(currentPage)) {
                     navigateTo('login');
                 }
@@ -67,7 +70,19 @@ function AppRouterInternal() {
         case 'addParcelle': pageComponent = isAuthenticated ? <ParcelleFormPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'editParcelle': pageComponent = isAuthenticated ? <ParcelleFormPage navigateTo={navigateTo} parcelleId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'parcelleDetail': pageComponent = isAuthenticated ? <ParcelleDetailPage navigateTo={navigateTo} parcelleId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; break;
-        case 'cultures': pageComponent = <CulturesCataloguePage navigateTo={navigateTo} />; break;
+        // case 'cultures': pageComponent = <CulturesCataloguePage navigateTo={navigateTo} />; break; // Old route
+        case 'culturesList': 
+            pageComponent = isAuthenticated ? <CulturesListPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; 
+            break;
+        case 'cultureDetail': 
+            pageComponent = isAuthenticated ? <CultureDetailPage navigateTo={navigateTo} cultureId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; 
+            break;
+        case 'addCulture': 
+            pageComponent = isAuthenticated ? <CultureFormPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; 
+            break;
+        case 'editCulture': 
+            pageComponent = isAuthenticated ? <CultureFormPage navigateTo={navigateTo} cultureId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; 
+            break;
         case 'elevage': pageComponent = isAuthenticated ? <ElevagePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'prix': pageComponent = <PrixPage navigateTo={navigateTo} />; break;
         case 'meteo': pageComponent = isAuthenticated ? <MeteoPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
