@@ -18,7 +18,11 @@ import CultureFormPage from './pages/cultures/CultureFormPage';   // To be creat
 import ElevagePage from './pages/elevage/ElevagePage';
 import PrixPage from './pages/prix/PrixPage';
 import MeteoPage from './pages/meteo/MeteoPage';
-import CommunautePage from './pages/communaute/CommunautePage';
+// import CommunautePage from './pages/communaute/CommunautePage'; // Old page
+import CategoriesListPage from './pages/communaute/CategoriesListPage'; // To be created
+import PostsListPage from './pages/communaute/PostsListPage';       // To be created
+import PostDetailPage from './pages/communaute/PostDetailPage';     // To be created
+import CreatePostPage from './pages/communaute/CreatePostPage';     // To be created
 import GeminiPage from './pages/gemini/GeminiPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { LoadingSpinner } from './components/common/LoadingSpinner'; // Chemin exemple
@@ -44,7 +48,7 @@ function AppRouterInternal() {
                     navigateTo('dashboard');
                 }
             } else {
-                const protectedPages = ['dashboard', 'parcelles', 'addParcelle', 'editParcelle', 'parcelleDetail', 'elevage', 'meteo', 'communaute', 'gemini', 'culturesList', 'cultureDetail', 'addCulture', 'editCulture'];
+                const protectedPages = ['dashboard', 'parcelles', 'addParcelle', 'editParcelle', 'parcelleDetail', 'elevage', 'meteo', /* 'communaute', */ 'gemini', 'culturesList', 'cultureDetail', 'addCulture', 'editCulture', 'communauteCreatePost'];
                 if (protectedPages.includes(currentPage)) {
                     navigateTo('login');
                 }
@@ -86,7 +90,19 @@ function AppRouterInternal() {
         case 'elevage': pageComponent = isAuthenticated ? <ElevagePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'prix': pageComponent = <PrixPage navigateTo={navigateTo} />; break;
         case 'meteo': pageComponent = isAuthenticated ? <MeteoPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
-        case 'communaute': pageComponent = isAuthenticated ? <CommunautePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
+        // case 'communaute': pageComponent = isAuthenticated ? <CommunautePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break; // Old route
+        case 'communauteCategories': 
+            pageComponent = <CategoriesListPage navigateTo={navigateTo} />;
+            break;
+        case 'communautePostsList': 
+            pageComponent = <PostsListPage navigateTo={navigateTo} categorieId={pageParam?.categorieId} />;
+            break;
+        case 'communautePostDetail': 
+            pageComponent = <PostDetailPage navigateTo={navigateTo} postId={pageParam?.postId} />;
+            break;
+        case 'communauteCreatePost': 
+            pageComponent = isAuthenticated ? <CreatePostPage navigateTo={navigateTo} categorieId={pageParam?.categorieId} /> : <LoginPage navigateTo={navigateTo} />;
+            break;
         case 'gemini': pageComponent = isAuthenticated ? <GeminiPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         default: pageComponent = <NotFoundPage />;
     }
