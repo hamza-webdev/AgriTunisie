@@ -10,7 +10,7 @@ import { LogIn } from 'lucide-react';
 
 const LoginPage = ({ navigateTo }) => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [mot_de_passe, setPassword] = useState();
     const [error, setError] = useState('');
     const [loadingState, setLoadingState] = useState(false);
     const { login } = useAuth();
@@ -20,7 +20,7 @@ const LoginPage = ({ navigateTo }) => {
         setError('');
         setLoadingState(true);
         try {
-            await login(email, password);
+            await login(email, mot_de_passe);
             navigateTo('dashboard');
         } catch (err) {
             let displayError = err.message || 'Erreur de connexion. Veuillez vérifier vos identifiants.';
@@ -44,5 +44,12 @@ const LoginPage = ({ navigateTo }) => {
                 {error && <Alert message={error} type="error" onClose={() => setError('')} />}
                 <form onSubmit={handleSubmit}>
                     <Input label="Email" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    <Input label="Mot de passe" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    <Button type="submit"
+                    <Input label="Mot de passe" type="password" name="mot_de_passe" value={mot_de_passe} onChange={(e) => setPassword(e.target.value)} required />
+                    <Button type="submit" variant="primary" className="w-full" disabled={loadingState} Icon={loadingState ? null : LogIn}>{loadingState ? <LoadingSpinner size="sm" /> : 'Se Connecter'}</Button>
+                </form>
+                <p className="text-sm text-center mt-4">Pas encore de compte ? <button onClick={() => navigateTo('register')} className="font-medium text-green-600 hover:text-green-500">Inscrivez-vous</button></p>
+            </Card>
+        </div>
+    );
+};
+export default LoginPage;

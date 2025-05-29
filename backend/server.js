@@ -13,10 +13,10 @@ const mainRoutes = require('./src/routes/index.routes');
 const app = express();
 const PORT = process.env.BACKEND_PORT || 3001;
 // Option 1: Allow specific origin
-const corsOptions = {
-  origin: 'http://192.168.254.1:3002'
-};
-app.use(cors(corsOptions));
+//const corsOptions = {
+//  origin: 'http://192.168.254.1:3002'
+//};
+//app.use(cors(corsOptions));
 
 // Middlewares de base
 app.use(helmet()); // Sécurité des en-têtes HTTP
