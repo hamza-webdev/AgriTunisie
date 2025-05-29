@@ -50,13 +50,12 @@ export const AuthProvider = ({ children }) => {
         try {
              console.log("AuthContext: Tentative d'accès à process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
               console.log("API_BASE_URL_CONTEXTI_URL", process.env.REACT_APP_API_URL);
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+            const response = await fetch(`${API_BASE_URL_CONTEXT}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, mot_de_passe }),
             });
             const data = await response.json();
-            console.log("AuthContext: Données de connexion", data);
             if (!response.ok) {
                 const errorToThrow = new Error(data.message || 'Échec de la connexion');
                 if (data.errors) { // Supposant que le backend renvoie un champ 'errors'

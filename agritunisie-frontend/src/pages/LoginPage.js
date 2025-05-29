@@ -10,7 +10,7 @@ import { LogIn } from 'lucide-react';
 
 const LoginPage = ({ navigateTo }) => {
     const [email, setEmail] = useState('');
-    const [mot_de_passe, setPassword] = useState();
+    const [mot_de_passe, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loadingState, setLoadingState] = useState(false);
     const { login } = useAuth();
