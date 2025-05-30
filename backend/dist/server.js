@@ -21,7 +21,7 @@ const PORT = process.env.BACKEND_PORT || 3001;
 // Middlewares de base
 app.use(helmet()); // Sécurité des en-têtes HTTP
 app.use(cors({ // Configuration CORS
-    origin: process.env.FRONTEND_URL || 'http://localhost:3002',
+    origin: process.env.FRONTEND_URL || 'http://agri.beha7263.odns.fr:3002',
     credentials: true,
 }));
 app.use(express.json()); // Pour parser les requêtes JSON
@@ -58,7 +58,7 @@ const startServer = async () => {
         console.log('Connexion à la base de données PostgreSQL établie avec succès.');
 
         app.listen(PORT, () => {
-            console.log(`🚀 Serveur backend démarré sur http://localhost:${PORT}`);
+            console.log(`🚀 Serveur backend démarré sur http://agri.beha7263.odns.fr:${PORT}`);
         });
     } catch (error) {
         console.error('Impossible de démarrer le serveur ou de se connecter à la base de données:', error);
