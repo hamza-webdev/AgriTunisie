@@ -15,6 +15,7 @@ import CulturesCataloguePage from './pages/cultures/CulturesCataloguePage';
 import ElevagePage from './pages/elevage/ElevagePage';
 import PrixPage from './pages/prix/PrixPage';
 import MeteoPage from './pages/meteo/MeteoPage';
+import LocalisemePage from './pages/localiseme/LocalisemePage';
 import CommunautePage from './pages/communaute/CommunautePage';
 import GeminiPage from './pages/gemini/GeminiPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -68,10 +69,11 @@ function AppRouterInternal() {
         case 'editParcelle': pageComponent = isAuthenticated ? <ParcelleFormPage navigateTo={navigateTo} parcelleId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'parcelleDetail': pageComponent = isAuthenticated ? <ParcelleDetailPage navigateTo={navigateTo} parcelleId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'cultures': pageComponent = <CulturesCataloguePage navigateTo={navigateTo} />; break;
-        case 'elevage': pageComponent = isAuthenticated ? <ElevagePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
+        case 'elevage': pageComponent = <ElevagePage navigateTo={navigateTo} />; break;
         case 'prix': pageComponent = <PrixPage navigateTo={navigateTo} />; break;
-        case 'meteo': pageComponent = isAuthenticated ? <MeteoPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
-        case 'communaute': pageComponent = isAuthenticated ? <CommunautePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
+        case 'meteo': pageComponent = <MeteoPage navigateTo={navigateTo} />; break;
+        case 'localiseme': pageComponent = <LocalisemePage navigateTo={navigateTo} />; break;
+        case 'communaute': <CommunautePage navigateTo={navigateTo} /> ; break;
         case 'gemini': pageComponent = isAuthenticated ? <GeminiPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         default: pageComponent = <NotFoundPage />;
     }

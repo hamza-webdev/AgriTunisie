@@ -15,7 +15,8 @@ export const Navbar = ({ navigateTo }) => { // Exporter directement
         { name: 'Catalogue Cultures', page: 'cultures', icon: Leaf, authRequired: false },
         { name: 'Élevage', page: 'elevage', icon: Tractor, authRequired: true },
         { name: 'Bourse des Prix', page: 'prix', icon: ShoppingCart, authRequired: false },
-        { name: 'Météo', page: 'meteo', icon: Sun, authRequired: true },
+        { name: 'Météo', page: 'meteo', icon: Sun},
+        { name: 'LocaliseMe', page: 'localiseme', icon: MapPinned},
         { name: 'Communauté', page: 'communaute', icon: MessageSquare, authRequired: true },
         { name: 'Conseils IA', page: 'gemini', icon: Brain, authRequired: true },
     ];
