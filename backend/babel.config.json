@@ -1,0 +1,14 @@
+// .babelrc
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current" // ou une version spécifique de Node.js
+        }
+      }
+    ]
+  ]
+  // Ajoutez ici les plugins nécessaires (ex: pour les décorateurs, class properties, etc.)
+}

@@ -13,10 +13,14 @@
     "pg": "^8.16.0"
   },
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "tsc"
+    "start": "node server.js",
+    "build": "babel src --out-dir dist --copy-files"
   },
   "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.3",
+    "@babel/node": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
     "typescript": "^5.8.3"
   }
 }
