@@ -63,7 +63,7 @@ const CreatePostPage = ({ navigateTo, categorieId }) => {
         try {
             const postData = {
                 ...formData,
-                categorie_id: categorieId 
+                categorie_id: categorieId
             };
             const newPost = await createPost(postData);
             // Navigate to the new post's detail page or the posts list for the category
@@ -84,7 +84,7 @@ const CreatePostPage = ({ navigateTo, categorieId }) => {
             </Card>
         );
     }
-    
+
     if (!categorieId) {
         return (
             <Card className="text-center p-6">
@@ -98,10 +98,10 @@ const CreatePostPage = ({ navigateTo, categorieId }) => {
 
     return (
         <div className="p-4 md:p-6">
-             <Button 
-                onClick={() => navigateTo('communautePostsList', { categorieId: categorieId })} 
-                Icon={ArrowLeft} 
-                variant="ghost" 
+             <Button
+                onClick={() => navigateTo('communautePostsList', { categorieId: categorieId })}
+                Icon={ArrowLeft}
+                variant="ghost"
                 className="mb-4 text-sm text-green-700 hover:text-green-800 self-start"
             >
                 Retour aux posts de la catégorie {/* categoryDetails ? categoryDetails.nom_categorie : categorieId */}
@@ -112,7 +112,7 @@ const CreatePostPage = ({ navigateTo, categorieId }) => {
                 </h1>
                 {/* Optional: Display category name if fetched */}
                 {/* {categoryDetails && <p className="text-md text-gray-600 mb-4">Dans la catégorie : {categoryDetails.nom_categorie}</p>} */}
-                
+
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                         <strong className="font-bold">Erreur: </strong>
@@ -142,19 +142,19 @@ const CreatePostPage = ({ navigateTo, categorieId }) => {
                      {formErrors.categorieId && <p className="text-red-500 text-sm">{formErrors.categorieId}</p>}
 
                     <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">
-                        <Button 
-                            type="button" 
-                            onClick={() => navigateTo('communautePostsList', { categorieId: categorieId })} 
-                            variant="outline" 
+                        <Button
+                            type="button"
+                            onClick={() => navigateTo('communautePostsList', { categorieId: categorieId })}
+                            variant="outline"
                             disabled={isLoading}
                         >
                             Annuler
                         </Button>
-                        <Button 
-                            type="submit" 
-                            variant="primary" 
-                            Icon={Send} 
-                            isLoading={isLoading} 
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            Icon={Send}
+                            isLoading={isLoading}
                             disabled={isLoading}
                         >
                             {isLoading ? 'Publication...' : 'Publier le Post'}

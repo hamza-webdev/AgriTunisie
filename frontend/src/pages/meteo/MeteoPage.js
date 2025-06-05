@@ -54,7 +54,7 @@ const MeteoPage = ({ navigateTo }) => {
             setIsLoadingHistorique(false);
         }
     };
-    
+
     // Helper to get OpenWeatherMap icon URL
     const getWeatherIconUrl = (iconCode) => {
         return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -64,7 +64,7 @@ const MeteoPage = ({ navigateTo }) => {
         <div className="space-y-8">
             <Card>
                 <h1 className="text-2xl font-semibold text-gray-800 mb-6">Météo Agricole</h1>
-                
+
                 <form onSubmit={handleFetchPrevisions} className="space-y-4 p-4 border rounded-md mb-6">
                     <h2 className="text-xl font-medium text-gray-700">Prévisions Météo</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -124,7 +124,7 @@ const MeteoPage = ({ navigateTo }) => {
                     </Button>
                     {errorHistorique && <p className="text-red-500 text-sm mt-2">{errorHistorique}</p>}
                 </form>
-                
+
                 {isLoadingHistorique && <div className="flex justify-center p-4"><LoadingSpinner /></div>}
                 {historiqueData && (
                     <div>

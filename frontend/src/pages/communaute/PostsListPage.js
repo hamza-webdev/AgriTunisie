@@ -67,7 +67,7 @@ const PostsListPage = ({ navigateTo, categorieId }) => {
             </Card>
         );
     }
-    
+
     if (isLoading && posts.length === 0) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -106,9 +106,9 @@ const PostsListPage = ({ navigateTo, categorieId }) => {
                     {/* {categoryDetails && <p className="text-sm text-gray-500 mt-1">{categoryDetails.description_categorie}</p>} */}
                 </div>
                 {isAuthenticated && (
-                    <Button 
-                        onClick={() => navigateTo('communauteCreatePost', { categorieId: categorieId })} 
-                        variant="primary" 
+                    <Button
+                        onClick={() => navigateTo('communauteCreatePost', { categorieId: categorieId })}
+                        variant="primary"
                         Icon={PlusCircle}
                         className="w-full sm:w-auto"
                     >
@@ -127,12 +127,12 @@ const PostsListPage = ({ navigateTo, categorieId }) => {
             ) : (
                 <div className="space-y-4">
                     {posts.map(post => (
-                        <Card 
-                            key={post.id} 
+                        <Card
+                            key={post.id}
                             className="hover:shadow-lg transition-shadow duration-200 ease-in-out"
                         >
                             <div className="p-4">
-                                <h2 
+                                <h2
                                     className="text-xl font-semibold text-green-700 hover:text-green-800 cursor-pointer"
                                     onClick={() => navigateTo('communautePostDetail', { postId: post.id })}
                                 >

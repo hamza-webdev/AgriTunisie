@@ -77,8 +77,8 @@ const CategoriesListPage = ({ navigateTo }) => {
             ) : (
                 <div className="space-y-4">
                     {categories.map(categorie => (
-                        <Card 
-                            key={categorie.id} 
+                        <Card
+                            key={categorie.id}
                             className="hover:shadow-lg transition-shadow duration-200 ease-in-out cursor-pointer"
                             onClick={() => navigateTo('communautePostsList', { categorieId: categorie.id })}
                         >

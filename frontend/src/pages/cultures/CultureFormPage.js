@@ -112,7 +112,7 @@ const CultureFormPage = ({ navigateTo, cultureId }) => {
             </div>
         );
     }
-    
+
     if (error && !isEditing && !cultureId) { // If error during initial load for new form (less likely but good practice)
          return (
             <Card>

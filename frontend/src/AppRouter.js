@@ -75,32 +75,32 @@ function AppRouterInternal() {
         case 'editParcelle': pageComponent = isAuthenticated ? <ParcelleFormPage navigateTo={navigateTo} parcelleId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'parcelleDetail': pageComponent = isAuthenticated ? <ParcelleDetailPage navigateTo={navigateTo} parcelleId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; break;
         // case 'cultures': pageComponent = <CulturesCataloguePage navigateTo={navigateTo} />; break; // Old route
-        case 'culturesList': 
-            pageComponent = isAuthenticated ? <CulturesListPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; 
+        case 'culturesList':
+            pageComponent = isAuthenticated ? <CulturesListPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />;
             break;
-        case 'cultureDetail': 
-            pageComponent = isAuthenticated ? <CultureDetailPage navigateTo={navigateTo} cultureId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; 
+        case 'cultureDetail':
+            pageComponent = isAuthenticated ? <CultureDetailPage navigateTo={navigateTo} cultureId={pageParam} /> : <LoginPage navigateTo={navigateTo} />;
             break;
-        case 'addCulture': 
-            pageComponent = isAuthenticated ? <CultureFormPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; 
+        case 'addCulture':
+            pageComponent = isAuthenticated ? <CultureFormPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />;
             break;
-        case 'editCulture': 
-            pageComponent = isAuthenticated ? <CultureFormPage navigateTo={navigateTo} cultureId={pageParam} /> : <LoginPage navigateTo={navigateTo} />; 
+        case 'editCulture':
+            pageComponent = isAuthenticated ? <CultureFormPage navigateTo={navigateTo} cultureId={pageParam} /> : <LoginPage navigateTo={navigateTo} />;
             break;
         case 'elevage': pageComponent = isAuthenticated ? <ElevagePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         case 'prix': pageComponent = <PrixPage navigateTo={navigateTo} />; break;
         case 'meteo': pageComponent = isAuthenticated ? <MeteoPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;
         // case 'communaute': pageComponent = isAuthenticated ? <CommunautePage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break; // Old route
-        case 'communauteCategories': 
+        case 'communauteCategories':
             pageComponent = <CategoriesListPage navigateTo={navigateTo} />;
             break;
-        case 'communautePostsList': 
+        case 'communautePostsList':
             pageComponent = <PostsListPage navigateTo={navigateTo} categorieId={pageParam?.categorieId} />;
             break;
-        case 'communautePostDetail': 
+        case 'communautePostDetail':
             pageComponent = <PostDetailPage navigateTo={navigateTo} postId={pageParam?.postId} />;
             break;
-        case 'communauteCreatePost': 
+        case 'communauteCreatePost':
             pageComponent = isAuthenticated ? <CreatePostPage navigateTo={navigateTo} categorieId={pageParam?.categorieId} /> : <LoginPage navigateTo={navigateTo} />;
             break;
         case 'gemini': pageComponent = isAuthenticated ? <GeminiPage navigateTo={navigateTo} /> : <LoginPage navigateTo={navigateTo} />; break;

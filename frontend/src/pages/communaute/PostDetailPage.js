@@ -16,7 +16,7 @@ const PostDetailPage = ({ navigateTo, postId }) => {
     const [isLoadingComments, setIsLoadingComments] = useState(false);
     const [errorPost, setErrorPost] = useState(null);
     const [errorComments, setErrorComments] = useState(null);
-    
+
     const [commentsPagination, setCommentsPagination] = useState({
         currentPage: 1,
         totalPages: 1,
@@ -77,7 +77,7 @@ const PostDetailPage = ({ navigateTo, postId }) => {
             fetchComments(1);
         }
     };
-    
+
     const handleAddComment = async (e) => {
         e.preventDefault();
         if (!newComment.trim()) {
@@ -91,7 +91,7 @@ const PostDetailPage = ({ navigateTo, postId }) => {
             setNewComment('');
             // Refresh comments by fetching the first page again and clearing existing ones
             setComments([]);
-            fetchComments(1); 
+            fetchComments(1);
             // Or, ideally, backend returns the new comment and we append it.
             // For now, re-fetching page 1 is simpler.
         } catch (err) {
@@ -132,7 +132,7 @@ const PostDetailPage = ({ navigateTo, postId }) => {
             </Card>
         );
     }
-    
+
     if (!post) {
          return (
             <Card className="text-center p-6">
@@ -146,10 +146,10 @@ const PostDetailPage = ({ navigateTo, postId }) => {
 
     return (
         <div className="space-y-6 p-4 md:p-6">
-            <Button 
-                onClick={() => navigateTo('communautePostsList', { categorieId: post.categorie_id })} 
-                Icon={ArrowLeft} 
-                variant="ghost" 
+            <Button
+                onClick={() => navigateTo('communautePostsList', { categorieId: post.categorie_id })}
+                Icon={ArrowLeft}
+                variant="ghost"
                 className="mb-0 text-sm text-green-700 hover:text-green-800 self-start"
             >
                 Retour à la liste des posts (Catégorie: {post.categorie_id})
@@ -173,7 +173,7 @@ const PostDetailPage = ({ navigateTo, postId }) => {
                 <h2 className="text-xl font-semibold text-gray-700 mb-4 flex items-center">
                     <MessageCircle size={24} className="mr-2 text-green-600"/> Commentaires ({commentsPagination.totalItems})
                 </h2>
-                
+
                 {isAuthenticated && (
                     <form onSubmit={handleAddComment} className="mb-6">
                         <Textarea
@@ -194,7 +194,7 @@ const PostDetailPage = ({ navigateTo, postId }) => {
 
                 {isLoadingComments && comments.length === 0 && <div className="flex justify-center p-4"><LoadingSpinner /></div>}
                 {errorComments && <p className="text-red-500 text-sm">Erreur: {errorComments}</p>}
-                
+
                 {comments.length > 0 ? (
                     <div className="space-y-4">
                         {comments.map(comment => (
